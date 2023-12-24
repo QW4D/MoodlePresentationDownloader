@@ -2,10 +2,11 @@ import requests
 from img2pdf import convert
 import shutil
 import os
-#link = input("ссылка на слайд (номер слайда заменить на {}):")
 
-'''
+link = input("ссылка на слайд (номер слайда заменить на {}):")
+
 i = 1
+os.mkdir("tmp")
 while requests.get(link.format(i)).ok:
     response = requests.get(link.format(i), stream=True)
     with open(f'tmp/{i}.png', 'wb') as out_file:
@@ -13,7 +14,7 @@ while requests.get(link.format(i)).ok:
     del response
 
     i += 1
-'''
+
 i = 64
 n = i
 imgs = []
@@ -23,4 +24,4 @@ print(imgs)
 with open('presentation.pdf', "wb") as pdf:
     pdf.write(convert(imgs))
 
-os.remove("./tmp")
+shutil.rmtree("tmp")
